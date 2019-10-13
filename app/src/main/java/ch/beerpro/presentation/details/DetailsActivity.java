@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ import butterknife.OnClick;
 import ch.beerpro.GlideApp;
 import ch.beerpro.R;
 import ch.beerpro.domain.models.Beer;
+import ch.beerpro.domain.models.FridgeItem;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
 import ch.beerpro.presentation.details.createrating.CreateRatingActivity;
@@ -77,9 +79,14 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
+    View singleBottomSheetDialogView;
+    BottomSheetDialog bottomSheetDialog;
+    private ToggleButton addToFridgeToggleButton;
+
     private RatingsRecyclerViewAdapter adapter;
 
     private DetailsViewModel model;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +99,26 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
         getWindow().getDecorView()
                 .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         toolbar.setTitleTextColor(Color.alpha(0));
+
+        singleBottomSheetDialogView = getLayoutInflater().inflate(R.layout.fragment_single_bottom_sheet_dialog, null);
+        bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(singleBottomSheetDialogView);
+
+        addToFridgeToggleButton = singleBottomSheetDialogView.findViewById(R.id.addToFridge);
+
+        addToFridgeToggleButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                model.toggleItemInFridge(model.getBeer().getValue().getId(), 1);
+
+
+                //We won't get an update from firestore when the wish is removed, so we need to reset the UI state ourselves.
+                if (!addToFridgeToggleButton.isChecked()) {
+                    toggleAddToFridgeView(null);
+                }
+            }
+        });
 
         String beerId = getIntent().getExtras().getString(ITEM_ID);
 
@@ -107,6 +134,7 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
         model.getBeer().observe(this, this::updateBeer);
         model.getRatings().observe(this, this::updateRatings);
         model.getWish().observe(this, this::toggleWishlistView);
+        model.getFridgeItem().observe(this, this::toggleAddToFridgeView);
 
         recyclerView.setAdapter(adapter);
         addRatingBar.setOnRatingBarChangeListener(this::addNewRating);
@@ -122,11 +150,10 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
 
     @OnClick(R.id.actionsButton)
     public void showBottomSheetDialog() {
-        View view = getLayoutInflater().inflate(R.layout.single_bottom_sheet_dialog, null);
-        BottomSheetDialog dialog = new BottomSheetDialog(this);
-        dialog.setContentView(view);
-        dialog.show();
+        bottomSheetDialog.show();
     }
+
+
 
     private void updateBeer(Beer item) {
         name.setText(item.getName());
@@ -174,6 +201,9 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
         }
     }
 
+
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -182,6 +212,23 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+
+    private void toggleAddToFridgeView(FridgeItem fridgeitem) {
+
+        ToggleButton addToFridgeToggleButton = singleBottomSheetDialogView.findViewById(R.id.addToFridge);
+
+        if (fridgeitem != null) {
+            int color = getResources().getColor(R.color.colorPrimary);
+            setDrawableTint(addToFridgeToggleButton, color);
+            addToFridgeToggleButton.setChecked(true);
+        } else {
+            int color = getResources().getColor(android.R.color.darker_gray);
+            setDrawableTint(addToFridgeToggleButton, color);
+            addToFridgeToggleButton.setChecked(false);
         }
     }
 }
