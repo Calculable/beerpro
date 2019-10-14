@@ -22,6 +22,7 @@ import ch.beerpro.R;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.FridgeItem;
 import ch.beerpro.presentation.details.DetailsActivity;
+import ch.beerpro.presentation.modal.ModalInputNumberDialog;
 
 
 public class FridgeActivity extends AppCompatActivity implements OnFridgeItemInteractionListener {
@@ -93,12 +94,33 @@ public class FridgeActivity extends AppCompatActivity implements OnFridgeItemInt
 
     @Override
     public void onFridgeClickedListener(Beer beer) {
+        removeExistingBeerFromFridge(beer);
+    }
+
+    private void removeExistingBeerFromFridge(Beer beer) {
         model.toggleItemInFridge(beer.getId(), 0); //amount is 0 because beers can only be removed from fridge hier
     }
 
     @Override
     public void onFridgeAmountClickedListener(Beer beer) {
-        //ToDo: Get new amount
+
+
+        ModalInputNumberDialog.readUserInputNumber( FridgeActivity.this, getString(R.string.title_input_fridge_amount_change), getString(R.string.message_input_fridge_amount_change), (amount) -> {
+
+            //Callback for Success: Add Beer to Fridge
+            if (amount <= 0) {
+                //remove beer from fridge if amount = 0 (or below)
+                removeExistingBeerFromFridge(beer);
+            } else {
+                model.changeFridgeItemAmount(beer.getId(), amount);
+            }
+        }, () -> {
+            //No valid amount entered. Do Nothing
+        });
+
+
+
+
 
     }
 

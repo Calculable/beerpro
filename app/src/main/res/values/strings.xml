@@ -105,6 +105,14 @@
     <string name="title_activity_mybeers">Meine Biere</string>
     <string name="action_search">Bier suchen</string>
 
+    <string name="title_input_fridge_amount_set">Anzahl</string>
+    <string name="message_input_fridge_amount_set">Wie viele Biere möchten Sie zum Kühlschrank hinzufügen?</string>
+
+    <string name="title_input_fridge_amount_change">Anzahl</string>
+    <string name="message_input_fridge_amount_change">Wie viele Biere haben Sie im Kühlschrank?</string>
+
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -41,6 +41,7 @@ public class FridgeRepository {
         return new FirestoreQueryLiveData<>(document, FridgeItem.class);
     }
 
+
     public Task<Void> toggleUserFridgeItem(String userId, String itemId, int amount) {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -55,6 +56,25 @@ public class FridgeRepository {
             } else if (task.isSuccessful()) {
                 return fridgeItemEntryQuery.set(new FridgeItem(userId, itemId, new Date(), amount));
             } else {
+                throw task.getException();
+            }
+        });
+    }
+
+
+    public Task<Void> changeFridgeItemAmount(String userId, String itemId, int newAmount) {
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        String fridgeItemId = FridgeItem.generateId(userId, itemId);
+
+        DocumentReference fridgeItemEntryQuery = db.collection(FridgeItem.COLLECTION).document(fridgeItemId);
+
+        return fridgeItemEntryQuery.get().continueWithTask(task -> {
+            if (task.isSuccessful() && task.getResult().exists()) {
+                return fridgeItemEntryQuery.set(new FridgeItem(userId, itemId, new Date(), newAmount));
+            } else {
+                //cannot change amount if beer is not yet in fridge
                 throw task.getException();
             }
         });

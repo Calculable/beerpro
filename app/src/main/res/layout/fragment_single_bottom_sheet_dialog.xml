@@ -61,8 +61,8 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/ic_refrigerator"
             android:drawableTint="@android:color/darker_gray"
-            android:textOff="In den Kühlschrank"
-            android:textOn="Aus Kühlschrank entfernen"
+            android:textOff="Kühlschrank"
+            android:textOn="Kühlschrank"
 
             android:textColor="@android:color/darker_gray"
             android:textSize="10sp" />

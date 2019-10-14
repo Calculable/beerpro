@@ -1,17 +1,24 @@
 package ch.beerpro.presentation.details;
 
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
@@ -25,6 +32,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +44,7 @@ import ch.beerpro.domain.models.FridgeItem;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
 import ch.beerpro.presentation.details.createrating.CreateRatingActivity;
+import ch.beerpro.presentation.modal.ModalInputNumberDialog;
 
 import static ch.beerpro.presentation.utils.DrawableHelpers.setDrawableTint;
 
@@ -110,6 +119,8 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
 
             @Override
             public void onClick(View view) {
+                /*
+
                 model.toggleItemInFridge(model.getBeer().getValue().getId(), 1);
 
 
@@ -117,7 +128,45 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
                 if (!addToFridgeToggleButton.isChecked()) {
                     toggleAddToFridgeView(null);
                 }
+
+                */
+
+
+                //We won't get an update from firestore when the fridge-entry is removed, so we need to reset the UI state ourselves.
+                if (!addToFridgeToggleButton.isChecked()) {
+                    removeItemFromFridge(model.getBeer().getValue().getId());
+                    toggleAddToFridgeView(null);
+                } else {
+                    addItemToFridge(model.getBeer().getValue().getId());
+                }
+
+
+
             }
+
+            private void addItemToFridge(String beerId) {
+
+                ModalInputNumberDialog.readUserInputNumber( DetailsActivity.this, getString (R.string.title_input_fridge_amount_set), getString (R.string.message_input_fridge_amount_set), (amount) -> {
+                    //Callback for Success: Add Beer to Fridge
+                    if (amount < 1) {
+                        toggleAddToFridgeView(null);
+                        return; //do not add to fridge
+                    }
+
+                    model.toggleItemInFridge(model.getBeer().getValue().getId(), amount);
+
+
+                }, () -> {
+                    toggleAddToFridgeView(null);
+                });
+
+            }
+
+            private void removeItemFromFridge(String beerId) {
+                model.toggleItemInFridge(beerId, 0);
+
+            }
+
         });
 
         String beerId = getIntent().getExtras().getString(ITEM_ID);
