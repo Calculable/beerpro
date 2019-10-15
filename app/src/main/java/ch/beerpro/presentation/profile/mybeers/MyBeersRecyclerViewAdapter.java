@@ -24,6 +24,7 @@ import ch.beerpro.GlideApp;
 import ch.beerpro.R;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.MyBeer;
+import ch.beerpro.domain.models.MyBeerFromFridge;
 import ch.beerpro.domain.models.MyBeerFromRating;
 import ch.beerpro.domain.models.MyBeerFromWishlist;
 import ch.beerpro.presentation.utils.DrawableHelpers;
@@ -122,6 +123,8 @@ public class MyBeersRecyclerViewAdapter extends ListAdapter<MyBeer, MyBeersRecyc
                     DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.SHORT).format(entry.getDate());
             addedAt.setText(formattedDate);
 
+            //ToDo: Fridge here
+
             if (entry instanceof MyBeerFromWishlist) {
                 DrawableHelpers
                         .setDrawableTint(removeFromWishlist, itemView.getResources().getColor(R.color.colorPrimary));
@@ -131,6 +134,13 @@ public class MyBeersRecyclerViewAdapter extends ListAdapter<MyBeer, MyBeersRecyc
                         itemView.getResources().getColor(android.R.color.darker_gray));
                 removeFromWishlist.setText("Wunschliste");
                 onTheListSince.setText("beurteilt am");
+            }
+
+
+            if (entry instanceof MyBeerFromFridge) {
+                onTheListSince.setText("Im Kühlschrank seit");
+
+
             }
         }
     }

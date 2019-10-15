@@ -111,6 +111,8 @@
     <string name="title_input_fridge_amount_change">Anzahl</string>
     <string name="message_input_fridge_amount_change">Wie viele Biere haben Sie im Kühlschrank?</string>
 
+    <string name="my_beers_in_fridge_since">Im Kühlschrank seit</string>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->

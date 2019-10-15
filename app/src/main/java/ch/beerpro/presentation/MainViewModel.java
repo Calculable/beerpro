@@ -60,8 +60,9 @@ public class MainViewModel extends ViewModel implements CurrentUser {
         MutableLiveData<String> currentUserId = new MutableLiveData<>();
         myWishlist = wishlistRepository.getMyWishlist(currentUserId);
         myRatings = ratingsRepository.getMyRatings(currentUserId);
-        myBeers = myBeersRepository.getMyBeers(allBeers, myWishlist, myRatings);
         myFridgeItems = fridgeRepository.getMyFridgeItems(currentUserId);
+        myBeers = myBeersRepository.getMyBeers(allBeers, myWishlist, myRatings, myFridgeItems);
+
         /*
          * Set the current user id, which is used as input for the getMyWishlist and getMyRatings calls above.
          * Settings the id does not yet cause any computation or data fetching, only when an observer is subscribed
