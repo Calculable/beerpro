@@ -107,8 +107,6 @@ public class WishlistRecyclerViewAdapter extends ListAdapter<Pair<Wish, Beer>, W
             moveToFridge.setOnClickListener(v -> listener.onMoveToFridgeClickedListener(item));
 
 
-
-
         }
 
     }

@@ -7,8 +7,6 @@ import android.widget.EditText;
 
 import java.util.function.Consumer;
 
-import ch.beerpro.presentation.details.DetailsActivity;
-
 public class ModalInputNumberDialog {
 
     public static void readUserInputNumber(Context context, String title, String message, Consumer<Integer> success, Runnable cancel) {

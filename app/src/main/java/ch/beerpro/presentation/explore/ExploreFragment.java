@@ -19,8 +19,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ch.beerpro.R;
-import ch.beerpro.presentation.images.ImageHelper;
 import ch.beerpro.presentation.explore.search.SearchActivity;
+import ch.beerpro.presentation.images.ImageHelper;
 import ch.beerpro.presentation.images.ImageStorageConstants;
 import ch.beerpro.presentation.utils.ViewPagerAdapter;
 
@@ -40,7 +40,6 @@ public class ExploreFragment extends Fragment {
 
     @BindView(R.id.backgroundImage)
     ImageView backgroundImageView;
-
 
 
     /**

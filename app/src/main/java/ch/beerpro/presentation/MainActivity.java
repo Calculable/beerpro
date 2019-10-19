@@ -2,7 +2,6 @@ package ch.beerpro.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.storage.StorageManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;

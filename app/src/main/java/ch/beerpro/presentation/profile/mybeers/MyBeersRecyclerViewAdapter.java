@@ -125,7 +125,6 @@ public class MyBeersRecyclerViewAdapter extends ListAdapter<MyBeerFromUser, MyBe
             addedAt.setText(formattedDate);
 
 
-
             //Default Values
             DrawableHelpers.setDrawableTint(removeOrAddFromWishlist,
                     itemView.getResources().getColor(android.R.color.darker_gray));

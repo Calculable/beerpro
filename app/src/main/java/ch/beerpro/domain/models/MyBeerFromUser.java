@@ -98,7 +98,6 @@ public class MyBeerFromUser {
     }
 
 
-
     public boolean equals(final Object o) {
         if (o == this) return true;
         if (!(o instanceof MyBeerFromUser)) return false;
@@ -108,7 +107,8 @@ public class MyBeerFromUser {
 
         final Object this$fridgeItem = this.getFridgeItem();
         final Object other$fridgeItem = other.getFridgeItem();
-        if (this$fridgeItem == null ? other$fridgeItem != null : !this$fridgeItem.equals(other$fridgeItem)) return false;
+        if (this$fridgeItem == null ? other$fridgeItem != null : !this$fridgeItem.equals(other$fridgeItem))
+            return false;
 
         final Object this$rating = this.getRating();
         final Object other$rating = other.getRating();

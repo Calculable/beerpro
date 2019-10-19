@@ -1,11 +1,5 @@
 package ch.beerpro.presentation.profile.myfridge;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +7,12 @@ import android.util.Pair;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -105,7 +105,7 @@ public class FridgeActivity extends AppCompatActivity implements OnFridgeItemInt
     public void onFridgeAmountClickedListener(Beer beer) {
 
 
-        ModalInputNumberDialog.readUserInputNumber( FridgeActivity.this, getString(R.string.title_input_fridge_amount_change), getString(R.string.message_input_fridge_amount_change), (amount) -> {
+        ModalInputNumberDialog.readUserInputNumber(FridgeActivity.this, getString(R.string.title_input_fridge_amount_change), getString(R.string.message_input_fridge_amount_change), (amount) -> {
 
             //Callback for Success: Add Beer to Fridge
             if (amount <= 0) {
@@ -117,9 +117,6 @@ public class FridgeActivity extends AppCompatActivity implements OnFridgeItemInt
         }, () -> {
             //No valid amount entered. Do Nothing
         });
-
-
-
 
 
     }

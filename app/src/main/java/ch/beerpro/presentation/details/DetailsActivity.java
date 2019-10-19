@@ -1,24 +1,16 @@
 package ch.beerpro.presentation.details;
 
 import android.app.ActivityOptions;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
@@ -34,7 +26,6 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +37,6 @@ import ch.beerpro.domain.models.FridgeItem;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
 import ch.beerpro.presentation.details.createrating.CreateRatingActivity;
-import ch.beerpro.presentation.explore.ExploreFragment;
 import ch.beerpro.presentation.images.ImageHelper;
 import ch.beerpro.presentation.images.ImageStorageConstants;
 import ch.beerpro.presentation.modal.ModalInputNumberDialog;
@@ -149,12 +139,11 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
                 }
 
 
-
             }
 
             private void addItemToFridge(String beerId) {
 
-                ModalInputNumberDialog.readUserInputNumber( DetailsActivity.this, getString (R.string.title_input_fridge_amount_set), getString (R.string.message_input_fridge_amount_set), (amount) -> {
+                ModalInputNumberDialog.readUserInputNumber(DetailsActivity.this, getString(R.string.title_input_fridge_amount_set), getString(R.string.message_input_fridge_amount_set), (amount) -> {
                     //Callback for Success: Add Beer to Fridge
                     if (amount < 1) {
                         toggleAddToFridgeView(null);
@@ -214,7 +203,6 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
     }
 
 
-
     private void updateBeer(Beer item) {
         name.setText(item.getName());
         manufacturer.setText(item.getManufacturer());
@@ -262,8 +250,6 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
     }
 
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -274,7 +260,6 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
 
     private void toggleAddToFridgeView(FridgeItem fridgeitem) {

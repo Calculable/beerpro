@@ -59,8 +59,7 @@ public class MyBeersFragment extends Fragment {
             adapter.submitList(new ArrayList<>());
             emptyView.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             adapter.submitList(new ArrayList<>(beers));
             emptyView.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
