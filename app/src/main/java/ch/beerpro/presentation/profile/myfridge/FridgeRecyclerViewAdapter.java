@@ -104,7 +104,7 @@ public class FridgeRecyclerViewAdapter extends ListAdapter<Pair<FridgeItem, Beer
             itemView.setOnClickListener(v -> listener.onMoreClickedListener(photo, item));
 
             String formattedDate =
-                    DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.SHORT).format(fridgeItem.getAddedAt());
+                    DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(fridgeItem.getAddedAt());
             addedAt.setText(formattedDate);
            amount.setText("" + fridgeItem.getAmount());
 

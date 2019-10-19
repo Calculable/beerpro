@@ -120,7 +120,7 @@ public class MyBeersRecyclerViewAdapter extends ListAdapter<MyBeer, MyBeersRecyc
             removeFromWishlist.setOnClickListener(v -> listener.onWishClickedListener(item));
 
             String formattedDate =
-                    DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.SHORT).format(entry.getDate());
+                    DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(entry.getDate());
             addedAt.setText(formattedDate);
 
             //ToDo: Fridge here

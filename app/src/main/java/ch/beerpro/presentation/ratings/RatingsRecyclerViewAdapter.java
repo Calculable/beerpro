@@ -111,7 +111,7 @@ public class RatingsRecyclerViewAdapter extends ListAdapter<Pair<Rating, Wish>, 
             ratingBar.setNumStars(5);
             ratingBar.setRating(item.getRating());
             String formattedDate =
-                    DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.SHORT).format(item.getCreationDate());
+                    DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(item.getCreationDate());
             date.setText(formattedDate);
 
             if (item.getPhoto() != null) {

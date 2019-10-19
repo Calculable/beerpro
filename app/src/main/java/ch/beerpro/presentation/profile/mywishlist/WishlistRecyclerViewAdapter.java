@@ -98,7 +98,7 @@ public class WishlistRecyclerViewAdapter extends ListAdapter<Pair<Wish, Beer>, W
             itemView.setOnClickListener(v -> listener.onMoreClickedListener(photo, item));
 
             String formattedDate =
-                    DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.SHORT).format(wish.getAddedAt());
+                    DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(wish.getAddedAt());
             addedAt.setText(formattedDate);
             remove.setOnClickListener(v -> listener.onWishClickedListener(item));
         }
