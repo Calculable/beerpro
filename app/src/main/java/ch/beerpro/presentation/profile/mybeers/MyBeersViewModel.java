@@ -20,7 +20,6 @@ import ch.beerpro.data.repositories.RatingsRepository;
 import ch.beerpro.data.repositories.WishlistRepository;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.FridgeItem;
-import ch.beerpro.domain.models.MyBeer;
 import ch.beerpro.domain.models.MyBeerFromUser;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;

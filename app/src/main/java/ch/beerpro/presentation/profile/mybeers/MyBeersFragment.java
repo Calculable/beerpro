@@ -17,7 +17,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.beerpro.R;
-import ch.beerpro.domain.models.MyBeer;
 import ch.beerpro.domain.models.MyBeerFromUser;
 
 public class MyBeersFragment extends Fragment {

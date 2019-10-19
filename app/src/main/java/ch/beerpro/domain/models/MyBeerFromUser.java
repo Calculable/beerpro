@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import java.util.Date;
 
-public class MyBeerFromUser implements MyBeer{
+public class MyBeerFromUser {
 
     private Beer beer;
 
@@ -31,12 +31,10 @@ public class MyBeerFromUser implements MyBeer{
         this(beer, null, null, wish);
     }
 
-    @Override
     public String getBeerId() {
         return beer.getId();
     }
 
-    @Override
     public Date getDate() {
         if (fridgeItem != null) { //if there is a fridge item, this date is returned because it will be presented as fridge-item in the "myBeer" Activity
             return fridgeItem.getAddedAt();

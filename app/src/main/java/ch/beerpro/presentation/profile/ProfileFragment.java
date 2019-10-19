@@ -24,7 +24,6 @@ import butterknife.OnClick;
 import ch.beerpro.GlideApp;
 import ch.beerpro.R;
 import ch.beerpro.domain.models.FridgeItem;
-import ch.beerpro.domain.models.MyBeer;
 import ch.beerpro.domain.models.MyBeerFromUser;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
