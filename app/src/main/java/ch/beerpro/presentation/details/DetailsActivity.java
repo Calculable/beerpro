@@ -29,6 +29,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +46,9 @@ import ch.beerpro.domain.models.FridgeItem;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
 import ch.beerpro.presentation.details.createrating.CreateRatingActivity;
+import ch.beerpro.presentation.explore.ExploreFragment;
+import ch.beerpro.presentation.images.ImageHelper;
+import ch.beerpro.presentation.images.ImageStorageConstants;
 import ch.beerpro.presentation.modal.ModalInputNumberDialog;
 
 import static ch.beerpro.presentation.utils.DrawableHelpers.setDrawableTint;
@@ -87,6 +92,9 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+
+    @BindView(R.id.detailsBackgroundImage)
+    ImageView detailsBackgroundImage;
 
     View singleBottomSheetDialogView;
     BottomSheetDialog bottomSheetDialog;
@@ -184,6 +192,9 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
         model.getRatings().observe(this, this::updateRatings);
         model.getWish().observe(this, this::toggleWishlistView);
         model.getFridgeItem().observe(this, this::toggleAddToFridgeView);
+
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference(ImageStorageConstants.DIRECTORY).child(ImageStorageConstants.MAIN_BACKGROUND);
+        ImageHelper.loadImageFromFirebase(DetailsActivity.this, storageReference, R.drawable.bg_bottles, detailsBackgroundImage);
 
         recyclerView.setAdapter(adapter);
         addRatingBar.setOnRatingBarChangeListener(this::addNewRating);

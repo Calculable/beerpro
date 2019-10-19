@@ -1,6 +1,7 @@
 package ch.beerpro.presentation.explore;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.beerpro.R;
+import ch.beerpro.presentation.images.ImageHelper;
+import ch.beerpro.presentation.images.ImageStorageConstants;
+import ch.beerpro.presentation.images.LazyLoadedImage;
 import ch.beerpro.presentation.utils.BackgroundImageProvider;
 import ch.beerpro.presentation.utils.StringDiffItemCallback;
 
@@ -109,9 +116,6 @@ public class BeerCategoriesRecyclerViewAdapter
         /**
          * The entries in the list are rather simple so there's not that much data to bind to the view elements. The
          * categories don't really have a background image assigned so we just get one from a helper class.
-         * <p>
-         * TODO Get the background image for each beer category from the database instead!
-         * <p>
          * And finally, we register the listener that we have passed through so many layer at the itemView. The
          * itemView is the whole layout, meaning that the user can click anywhere on the list item to invoke the
          * callback. It's always a good idea to make these touch targets as large as possible. As an experiment, try
@@ -122,9 +126,17 @@ public class BeerCategoriesRecyclerViewAdapter
             content.setText(item);
             Context resources = itemView.getContext();
 
+            LazyLoadedImage backgroundImage = BackgroundImageProvider.getBackgroundImage(position);
+
+            //Load Local image first
+            Drawable drawable = resources.getDrawable(backgroundImage.getLocalPreviewResource());
+            imageView.setImageDrawable(drawable);
+
+            //Replace with image from database
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference(ImageStorageConstants.DIRECTORY).child(backgroundImage.getServerStorageFilename());
+            ImageHelper.loadImageFromFirebase(resources, storageReference, backgroundImage.getLocalPreviewResource(), imageView);
 
 
-            imageView.setImageDrawable(BackgroundImageProvider.getBackgroundImage(resources, position));
             if (listener != null) {
                 itemView.setOnClickListener(v -> listener.onBeerCategorySelected(item));
             }

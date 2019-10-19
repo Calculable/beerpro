@@ -2,9 +2,7 @@ package ch.beerpro.presentation.explore;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.storage.StorageManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +11,6 @@ import android.widget.ImageView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -25,11 +19,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ch.beerpro.R;
-import ch.beerpro.presentation.ImageHelper;
+import ch.beerpro.presentation.images.ImageHelper;
 import ch.beerpro.presentation.explore.search.SearchActivity;
+import ch.beerpro.presentation.images.ImageStorageConstants;
 import ch.beerpro.presentation.utils.ViewPagerAdapter;
-
-import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 /**
  * This fragment is the first fragment shown in the {@link ch.beerpro.presentation.MainActivity}. It lets users
@@ -49,7 +42,6 @@ public class ExploreFragment extends Fragment {
     ImageView backgroundImageView;
 
 
-    StorageReference storageReference;
 
     /**
      * Fragments all need to have an empty constructor because the system might have the instantiate them.
@@ -71,7 +63,7 @@ public class ExploreFragment extends Fragment {
          * two listener interfaces), bypassing this fragment.
          * */
 
-        storageReference = FirebaseStorage.getInstance().getReference("Images").child("background.jpg");
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference(ImageStorageConstants.DIRECTORY).child(ImageStorageConstants.MAIN_BACKGROUND);
         ImageHelper.loadImageFromFirebase(ExploreFragment.this.getActivity(), storageReference, R.drawable.bg_bottles, backgroundImageView);
 
 

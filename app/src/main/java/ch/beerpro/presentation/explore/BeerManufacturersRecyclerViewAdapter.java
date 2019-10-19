@@ -1,6 +1,7 @@
 package ch.beerpro.presentation.explore;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.beerpro.R;
+import ch.beerpro.presentation.images.ImageHelper;
+import ch.beerpro.presentation.images.ImageStorageConstants;
+import ch.beerpro.presentation.images.LazyLoadedImage;
 import ch.beerpro.presentation.utils.BackgroundImageProvider;
 import ch.beerpro.presentation.utils.StringDiffItemCallback;
 
@@ -60,7 +67,19 @@ public class BeerManufacturersRecyclerViewAdapter
         void bind(String item, int position, BeerManufacturersFragment.OnItemSelectedListener listener) {
             content.setText(item);
             Context resources = itemView.getContext();
-            imageView.setImageDrawable(BackgroundImageProvider.getBackgroundImage(resources, position + 10));
+
+            //ToDo: Update here
+
+            LazyLoadedImage backgroundImage = BackgroundImageProvider.getBackgroundImage(position + 10);
+
+            //Load Local image first
+            Drawable drawable = resources.getDrawable(backgroundImage.getLocalPreviewResource());
+            imageView.setImageDrawable(drawable);
+
+            //Replace with image from database
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference(ImageStorageConstants.DIRECTORY).child(backgroundImage.getServerStorageFilename());
+            ImageHelper.loadImageFromFirebase(resources, storageReference, backgroundImage.getLocalPreviewResource(), imageView);
+
             if (listener != null) {
                 itemView.setOnClickListener(v -> listener.onBeerManufacturerSelected(item));
             }

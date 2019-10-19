@@ -1,4 +1,4 @@
-package ch.beerpro.presentation;
+package ch.beerpro.presentation.images;
 
 import android.content.Context;
 import android.net.Uri;
