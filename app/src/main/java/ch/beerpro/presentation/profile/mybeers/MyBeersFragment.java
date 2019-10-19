@@ -22,15 +22,11 @@ import ch.beerpro.domain.models.MyBeerFromUser;
 public class MyBeersFragment extends Fragment {
 
     private static final String TAG = "MyBeersFragment";
-
-    private OnMyBeerItemInteractionListener interactionListener;
-
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-
     @BindView(R.id.emptyView)
     View emptyView;
-
+    private OnMyBeerItemInteractionListener interactionListener;
     private MyBeersRecyclerViewAdapter adapter;
 
     public MyBeersFragment() {

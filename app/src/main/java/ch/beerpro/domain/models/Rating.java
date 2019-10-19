@@ -54,84 +54,84 @@ public class Rating implements Entity {
         return this.id;
     }
 
-    public String getBeerId() {
-        return this.beerId;
-    }
-
-    public String getBeerName() {
-        return this.beerName;
-    }
-
-    public String getUserId() {
-        return this.userId;
-    }
-
-    public String getUserName() {
-        return this.userName;
-    }
-
-    public String getUserPhoto() {
-        return this.userPhoto;
-    }
-
-    public String getPhoto() {
-        return this.photo;
-    }
-
-    public float getRating() {
-        return this.rating;
-    }
-
-    public String getComment() {
-        return this.comment;
-    }
-
-    public Map<String, Boolean> getLikes() {
-        return this.likes;
-    }
-
-    public Date getCreationDate() {
-        return this.creationDate;
-    }
-
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getBeerId() {
+        return this.beerId;
     }
 
     public void setBeerId(String beerId) {
         this.beerId = beerId;
     }
 
+    public String getBeerName() {
+        return this.beerName;
+    }
+
     public void setBeerName(String beerName) {
         this.beerName = beerName;
+    }
+
+    public String getUserId() {
+        return this.userId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
     }
 
+    public String getUserName() {
+        return this.userName;
+    }
+
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserPhoto() {
+        return this.userPhoto;
     }
 
     public void setUserPhoto(String userPhoto) {
         this.userPhoto = userPhoto;
     }
 
+    public String getPhoto() {
+        return this.photo;
+    }
+
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public float getRating() {
+        return this.rating;
     }
 
     public void setRating(float rating) {
         this.rating = rating;
     }
 
+    public String getComment() {
+        return this.comment;
+    }
+
     public void setComment(String comment) {
         this.comment = comment;
     }
 
+    public Map<String, Boolean> getLikes() {
+        return this.likes;
+    }
+
     public void setLikes(Map<String, Boolean> likes) {
         this.likes = likes;
+    }
+
+    public Date getCreationDate() {
+        return this.creationDate;
     }
 
     public void setCreationDate(Date creationDate) {

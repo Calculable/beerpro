@@ -22,20 +22,20 @@ public class User implements Entity {
         return this.id;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public String getPhoto() {
-        return this.photo;
-    }
-
     public void setId(String id) {
         this.id = id;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPhoto() {
+        return this.photo;
     }
 
     public void setPhoto(String photo) {

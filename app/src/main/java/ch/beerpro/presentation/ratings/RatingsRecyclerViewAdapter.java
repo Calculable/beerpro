@@ -38,8 +38,8 @@ public class RatingsRecyclerViewAdapter extends ListAdapter<Pair<Rating, Wish>, 
     private static final DiffUtil.ItemCallback<Pair<Rating, Wish>> DIFF_CALLBACK = new EntityPairDiffItemCallback<>();
 
     private final OnRatingsItemInteractionListener listener;
-    private Fragment fragment;
     private final FirebaseUser user;
+    private Fragment fragment;
 
     public RatingsRecyclerViewAdapter(OnRatingsItemInteractionListener listener, Fragment fragment, FirebaseUser user) {
         super(DIFF_CALLBACK);

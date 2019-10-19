@@ -2,13 +2,12 @@ package ch.beerpro.presentation.images;
 
 public class LazyLoadedImage {
 
+    private int localPreviewResource;
+    private String serverStorageFilename;
     public LazyLoadedImage(int localPreviewResource, String serverStorageFilename) {
         this.localPreviewResource = localPreviewResource;
         this.serverStorageFilename = serverStorageFilename;
     }
-
-    private int localPreviewResource;
-    private String serverStorageFilename;
 
     public int getLocalPreviewResource() {
         return localPreviewResource;

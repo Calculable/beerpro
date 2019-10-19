@@ -5,10 +5,6 @@ import java.util.List;
 
 public interface Entity {
 
-    String getId();
-
-    void setId(String id);
-
     static <T extends Entity> HashMap<String, T> entitiesById(List<T> entries) {
         HashMap<String, T> byId = new HashMap<>();
         for (T entry : entries) {
@@ -16,4 +12,8 @@ public interface Entity {
         }
         return byId;
     }
+
+    String getId();
+
+    void setId(String id);
 }

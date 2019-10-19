@@ -45,40 +45,40 @@ public class FridgeItem implements Entity {
         return this.id;
     }
 
-    public String getUserId() {
-        return this.userId;
-    }
-
-    public String getBeerId() {
-        return this.beerId;
-    }
-
-    public Date getAddedAt() {
-        return this.addedAt;
-    }
-
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUserId() {
+        return this.userId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
     }
 
+    public String getBeerId() {
+        return this.beerId;
+    }
+
     public void setBeerId(String beerId) {
         this.beerId = beerId;
+    }
+
+    public Date getAddedAt() {
+        return this.addedAt;
     }
 
     public void setAddedAt(Date addedAt) {
         this.addedAt = addedAt;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
-    }
-
     public Integer getAmount() {
         return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 
     public boolean equals(final Object o) {

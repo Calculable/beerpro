@@ -36,20 +36,40 @@ public class Beer implements Entity, Serializable {
         return this.id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getManufacturer() {
         return this.manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
     public String getName() {
         return this.name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getCategory() {
         return this.category;
     }
 
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public String getPhoto() {
         return this.photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public float getAvgRating() {
@@ -58,26 +78,6 @@ public class Beer implements Entity, Serializable {
 
     public int getNumRatings() {
         return this.numRatings;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
     }
 
     public void setNumRatings(int numRatings) {

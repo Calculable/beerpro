@@ -20,16 +20,6 @@ import static ch.beerpro.domain.utils.LiveDataExtensions.combineLatest;
 
 public class MyBeersRepository {
 
-    public LiveData<List<MyBeerFromUser>> getMyBeers(LiveData<List<Beer>> allBeers, LiveData<List<Wish>> myWishlist,
-                                                     LiveData<List<Rating>> myRatings,
-                                                     LiveData<List<FridgeItem>> myFridgeItems) {
-
-        return map(combineLatest(myWishlist, myRatings, myFridgeItems, map(allBeers, Entity::entitiesById)),
-                MyBeersRepository::getMyBeers);
-
-    }
-
-
     private static List<MyBeerFromUser> getMyBeers(CombinedBeer combinedBeer) {
         List<Wish> wishlist = combinedBeer.getLastWishlist();
         List<Rating> ratings = combinedBeer.getLastRatings();
@@ -83,6 +73,15 @@ public class MyBeersRepository {
 
         Collections.sort(result, (r1, r2) -> r2.getDate().compareTo(r1.getDate()));
         return result;
+    }
+
+    public LiveData<List<MyBeerFromUser>> getMyBeers(LiveData<List<Beer>> allBeers, LiveData<List<Wish>> myWishlist,
+                                                     LiveData<List<Rating>> myRatings,
+                                                     LiveData<List<FridgeItem>> myFridgeItems) {
+
+        return map(combineLatest(myWishlist, myRatings, myFridgeItems, map(allBeers, Entity::entitiesById)),
+                MyBeersRepository::getMyBeers);
+
     }
 
 

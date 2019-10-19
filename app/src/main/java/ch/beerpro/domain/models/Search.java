@@ -32,28 +32,28 @@ public class Search implements Entity {
         return this.id;
     }
 
-    public String getUserId() {
-        return this.userId;
-    }
-
-    public String getTerm() {
-        return this.term;
-    }
-
-    public Date getCreationDate() {
-        return this.creationDate;
-    }
-
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUserId() {
+        return this.userId;
     }
 
     public void setUserId(String userId) {
         this.userId = userId;
     }
 
+    public String getTerm() {
+        return this.term;
+    }
+
     public void setTerm(String term) {
         this.term = term;
+    }
+
+    public Date getCreationDate() {
+        return this.creationDate;
     }
 
     public void setCreationDate(Date creationDate) {
