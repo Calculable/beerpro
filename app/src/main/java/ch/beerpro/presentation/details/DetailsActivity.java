@@ -117,18 +117,6 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
 
             @Override
             public void onClick(View view) {
-                /*
-
-                model.toggleItemInFridge(model.getBeer().getValue().getId(), 1);
-
-
-                //We won't get an update from firestore when the wish is removed, so we need to reset the UI state ourselves.
-                if (!addToFridgeToggleButton.isChecked()) {
-                    toggleAddToFridgeView(null);
-                }
-
-                */
-
 
                 //We won't get an update from firestore when the fridge-entry is removed, so we need to reset the UI state ourselves.
                 if (!addToFridgeToggleButton.isChecked()) {
@@ -137,8 +125,6 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
                 } else {
                     addItemToFridge(model.getBeer().getValue().getId());
                 }
-
-
             }
 
             private void addItemToFridge(String beerId) {
@@ -151,8 +137,6 @@ public class DetailsActivity extends AppCompatActivity implements OnRatingLikedL
                     }
 
                     model.toggleItemInFridge(model.getBeer().getValue().getId(), amount);
-
-
                 }, () -> {
                     toggleAddToFridgeView(null);
                 });

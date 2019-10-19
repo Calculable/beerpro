@@ -104,7 +104,6 @@ public class FridgeActivity extends AppCompatActivity implements OnFridgeItemInt
     @Override
     public void onFridgeAmountClickedListener(Beer beer) {
 
-
         ModalInputNumberDialog.readUserInputNumber(FridgeActivity.this, getString(R.string.title_input_fridge_amount_change), getString(R.string.message_input_fridge_amount_change), (amount) -> {
 
             //Callback for Success: Add Beer to Fridge

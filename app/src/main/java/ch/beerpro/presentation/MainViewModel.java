@@ -106,10 +106,6 @@ public class MainViewModel extends ViewModel implements CurrentUser {
         return wishlistRepository.toggleUserWishlistItem(getCurrentUser().getUid(), itemId);
     }
 
-    public Task<Void> toggleItemInFridge(String itemId, int amount) {
-        return fridgeRepository.toggleUserFridgeItem(getCurrentUser().getUid(), itemId, amount);
-    }
-
     public LiveData<List<Pair<Rating, Wish>>> getAllRatingsWithWishes() {
         return ratingsRepository.getAllRatingsWithWishes(myWishlist);
     }

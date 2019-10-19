@@ -39,7 +39,6 @@ public class MyRatingsActivity extends AppCompatActivity implements OnMyRatingIt
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.title_activity_myratings));
 
-
         model = ViewModelProviders.of(this).get(MyRatingsViewModel.class);
         model.getMyRatingsWithWishes().observe(this, this::updateMyRatings);
 
