@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ch.beerpro.R;
 import ch.beerpro.domain.models.MyBeer;
+import ch.beerpro.domain.models.MyBeerFromUser;
 
 public class MyBeersFragment extends Fragment {
 
@@ -54,7 +55,7 @@ public class MyBeersFragment extends Fragment {
         return view;
     }
 
-    private void handleBeersChanged(List<MyBeer> beers) {
+    private void handleBeersChanged(List<MyBeerFromUser> beers) {
         if (beers == null || beers.isEmpty()) {
             adapter.submitList(new ArrayList<>());
             emptyView.setVisibility(View.VISIBLE);

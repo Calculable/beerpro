@@ -59,8 +59,8 @@ public class MyBeerFromFridge implements MyBeer {
     public int hashCode() {
         final int PRIME = 59;
         int result = 1;
-        final Object $wish = this.getFridgeItem();
-        result = result * PRIME + ($wish == null ? 43 : $wish.hashCode());
+        final Object $fridgeItem = this.getFridgeItem();
+        result = result * PRIME + ($fridgeItem == null ? 43 : $fridgeItem.hashCode());
         final Object $beer = this.getBeer();
         result = result * PRIME + ($beer == null ? 43 : $beer.hashCode());
         return result;

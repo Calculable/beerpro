@@ -17,6 +17,7 @@ import ch.beerpro.domain.models.FridgeItem;
 import ch.beerpro.domain.models.MyBeer;
 import ch.beerpro.domain.models.MyBeerFromFridge;
 import ch.beerpro.domain.models.MyBeerFromRating;
+import ch.beerpro.domain.models.MyBeerFromUser;
 import ch.beerpro.domain.models.MyBeerFromWishlist;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
@@ -55,7 +56,7 @@ public class MyBeersRepository {
     }*/
 
 
-    public LiveData<List<MyBeer>> getMyBeers(LiveData<List<Beer>> allBeers, LiveData<List<Wish>> myWishlist,
+    public LiveData<List<MyBeerFromUser>> getMyBeers(LiveData<List<Beer>> allBeers, LiveData<List<Wish>> myWishlist,
                                              LiveData<List<Rating>> myRatings,
                                              LiveData<List<FridgeItem>> myFridgeItems) {
 
@@ -67,41 +68,53 @@ public class MyBeersRepository {
     }
 
 
-    private static List<MyBeer> getMyBeers(CombinedBeer combinedBeer) {
+    private static List<MyBeerFromUser> getMyBeers(CombinedBeer combinedBeer) {
         List<Wish> wishlist = combinedBeer.getLastWishlist();
         List<Rating> ratings = combinedBeer.getLastRatings();
         List<FridgeItem> fridgeItems = combinedBeer.getLastFridgeItems();
         HashMap<String, Beer> beers = combinedBeer.getLastBeers();
 
-        ArrayList<MyBeer> result = new ArrayList<>();
-        Set<String> beersAlreadyOnTheList = new HashSet<>();
+        ArrayList<MyBeerFromUser> result = new ArrayList<>();
+        HashMap<String, MyBeerFromUser> beersAlreadyOnTheList = new HashMap<>();
 
 
         for (Wish wish : wishlist) {
             String beerId = wish.getBeerId();
-            result.add(new MyBeerFromWishlist(wish, beers.get(beerId)));
-            beersAlreadyOnTheList.add(beerId);
+            MyBeerFromUser myBeer = new MyBeerFromUser(beers.get(beerId), wish);
+            result.add(myBeer);
+            beersAlreadyOnTheList.put(beerId, myBeer);
         }
 
         for (FridgeItem fridgeItem : fridgeItems) {
             String beerId = fridgeItem.getBeerId();
-            if (beersAlreadyOnTheList.contains(beerId)) {
+
+            MyBeerFromUser existingBeer = beersAlreadyOnTheList.get(beerId);
+
+            if (existingBeer != null) {
                 // if the beer is already on the wish list or in a rating, don't add it again
+                existingBeer.setFridgeItem(fridgeItem);
             } else {
-                result.add(new MyBeerFromFridge(fridgeItem, beers.get(beerId)));
+                MyBeerFromUser myBeer = new MyBeerFromUser(beers.get(beerId), fridgeItem);
+                result.add(myBeer);
                 // we also don't want to see a rated beer twice
-                beersAlreadyOnTheList.add(beerId);
+                beersAlreadyOnTheList.put(beerId, myBeer);
             }
         }
 
         for (Rating rating : ratings) {
             String beerId = rating.getBeerId();
-            if (beersAlreadyOnTheList.contains(beerId)) {
+
+            MyBeerFromUser existingBeer = beersAlreadyOnTheList.get(beerId);
+
+
+            if (existingBeer != null) {
                 // if the beer is already on the wish list, don't add it again
+                existingBeer.setRating(rating);
             } else {
-                result.add(new MyBeerFromRating(rating, beers.get(beerId)));
+                MyBeerFromUser myBeer = new MyBeerFromUser(beers.get(beerId), rating);
+                result.add(myBeer);
                 // we also don't want to see a rated beer twice
-                beersAlreadyOnTheList.add(beerId);
+                beersAlreadyOnTheList.put(beerId, myBeer);
             }
         }
 

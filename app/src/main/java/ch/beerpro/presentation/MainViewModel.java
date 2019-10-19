@@ -20,6 +20,7 @@ import ch.beerpro.data.repositories.WishlistRepository;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.FridgeItem;
 import ch.beerpro.domain.models.MyBeer;
+import ch.beerpro.domain.models.MyBeerFromUser;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
 
@@ -39,7 +40,7 @@ public class MainViewModel extends ViewModel implements CurrentUser {
 
     private final LiveData<List<Wish>> myWishlist;
     private final LiveData<List<Rating>> myRatings;
-    private final LiveData<List<MyBeer>> myBeers;
+    private final LiveData<List<MyBeerFromUser>> myBeers;
     private final LiveData<List<FridgeItem>> myFridgeItems;
 
 
@@ -73,7 +74,7 @@ public class MainViewModel extends ViewModel implements CurrentUser {
         currentUserId.setValue(getCurrentUser().getUid());
     }
 
-    public LiveData<List<MyBeer>> getMyBeers() {
+    public LiveData<List<MyBeerFromUser>> getMyBeers() {
         return myBeers;
     }
 

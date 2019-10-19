@@ -25,6 +25,7 @@ import ch.beerpro.GlideApp;
 import ch.beerpro.R;
 import ch.beerpro.domain.models.FridgeItem;
 import ch.beerpro.domain.models.MyBeer;
+import ch.beerpro.domain.models.MyBeerFromUser;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
 import ch.beerpro.presentation.MainViewModel;
@@ -90,7 +91,7 @@ public class ProfileFragment extends Fragment {
         return rootView;
     }
 
-    private void updateMyBeersCount(List<MyBeer> myBeers) {
+    private void updateMyBeersCount(List<MyBeerFromUser> myBeers) {
         myBeersCount.setText(String.valueOf(myBeers.size()));
     }
 

@@ -26,22 +26,23 @@ import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.MyBeer;
 import ch.beerpro.domain.models.MyBeerFromFridge;
 import ch.beerpro.domain.models.MyBeerFromRating;
+import ch.beerpro.domain.models.MyBeerFromUser;
 import ch.beerpro.domain.models.MyBeerFromWishlist;
 import ch.beerpro.presentation.utils.DrawableHelpers;
 
 
-public class MyBeersRecyclerViewAdapter extends ListAdapter<MyBeer, MyBeersRecyclerViewAdapter.ViewHolder> {
+public class MyBeersRecyclerViewAdapter extends ListAdapter<MyBeerFromUser, MyBeersRecyclerViewAdapter.ViewHolder> {
 
     private static final String TAG = "MyBeersRecyclerViewAdap";
 
-    private static final DiffUtil.ItemCallback<MyBeer> DIFF_CALLBACK = new DiffUtil.ItemCallback<MyBeer>() {
+    private static final DiffUtil.ItemCallback<MyBeerFromUser> DIFF_CALLBACK = new DiffUtil.ItemCallback<MyBeerFromUser>() {
         @Override
-        public boolean areItemsTheSame(@NonNull MyBeer oldItem, @NonNull MyBeer newItem) {
+        public boolean areItemsTheSame(@NonNull MyBeerFromUser oldItem, @NonNull MyBeerFromUser newItem) {
             return oldItem.getBeerId().equals(newItem.getBeerId());
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull MyBeer oldItem, @NonNull MyBeer newItem) {
+        public boolean areContentsTheSame(@NonNull MyBeerFromUser oldItem, @NonNull MyBeerFromUser newItem) {
             return oldItem.equals(newItem);
         }
     };
@@ -65,7 +66,7 @@ public class MyBeersRecyclerViewAdapter extends ListAdapter<MyBeer, MyBeersRecyc
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        MyBeer entry = getItem(position);
+        MyBeerFromUser entry = getItem(position);
         holder.bind(entry, listener);
     }
 
@@ -106,7 +107,7 @@ public class MyBeersRecyclerViewAdapter extends ListAdapter<MyBeer, MyBeersRecyc
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(MyBeer entry, OnMyBeerItemInteractionListener listener) {
+        public void bind(MyBeerFromUser entry, OnMyBeerItemInteractionListener listener) {
 
             Beer item = entry.getBeer();
 
@@ -140,12 +141,12 @@ public class MyBeersRecyclerViewAdapter extends ListAdapter<MyBeer, MyBeersRecyc
 
 
             //Override Default Values
-            if (entry instanceof MyBeerFromRating) {
+            if (entry.hasRating()) {
 
                 onTheListSince.setText("beurteilt am");
             }
 
-            if (entry instanceof MyBeerFromWishlist) {
+            if (entry.isOnWishlist()) { //overwrite the changes from the rating
                 DrawableHelpers
                         .setDrawableTint(removeOrAddFromWishlist, itemView.getResources().getColor(R.color.colorPrimary));
                 removeOrAddFromWishlist.setText("Von Wunschliste entfernen");
@@ -153,7 +154,7 @@ public class MyBeersRecyclerViewAdapter extends ListAdapter<MyBeer, MyBeersRecyc
             }
 
 
-            if (entry instanceof MyBeerFromFridge) {
+            if (entry.isInFridge()) { //overwrite the changes from the wishlist
                 DrawableHelpers
                         .setDrawableTint(removeOrAddFromFridge, itemView.getResources().getColor(R.color.colorPrimary));
                 removeOrAddFromFridge.setText("Von Kühlschrank entfernen");

@@ -21,6 +21,7 @@ import ch.beerpro.data.repositories.WishlistRepository;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.FridgeItem;
 import ch.beerpro.domain.models.MyBeer;
+import ch.beerpro.domain.models.MyBeerFromUser;
 import ch.beerpro.domain.models.Rating;
 import ch.beerpro.domain.models.Wish;
 
@@ -35,7 +36,7 @@ public class MyBeersViewModel extends ViewModel implements CurrentUser {
     private final WishlistRepository wishlistRepository;
     private final FridgeRepository fridgeRepository;
 
-    private final LiveData<List<MyBeer>> myFilteredBeers;
+    private final LiveData<List<MyBeerFromUser>> myFilteredBeers;
 
     public MyBeersViewModel() {
 
@@ -51,24 +52,24 @@ public class MyBeersViewModel extends ViewModel implements CurrentUser {
         LiveData<List<Rating>> myRatings = ratingsRepository.getMyRatings(currentUserId);
         LiveData<List<FridgeItem>> myFridgeItems = fridgeRepository.getMyFridgeItems(currentUserId);
 
-        LiveData<List<MyBeer>> myBeers = myBeersRepository.getMyBeers(allBeers, myWishlist, myRatings, myFridgeItems);
+        LiveData<List<MyBeerFromUser>> myBeers = myBeersRepository.getMyBeers(allBeers, myWishlist, myRatings, myFridgeItems);
 
         myFilteredBeers = map(zip(searchTerm, myBeers), MyBeersViewModel::filter);
 
         currentUserId.setValue(getCurrentUser().getUid());
     }
 
-    private static List<MyBeer> filter(Pair<String, List<MyBeer>> input) {
+    private static List<MyBeerFromUser> filter(Pair<String, List<MyBeerFromUser>> input) {
         String searchTerm1 = input.first;
-        List<MyBeer> myBeers = input.second;
+        List<MyBeerFromUser> myBeers = input.second;
         if (Strings.isNullOrEmpty(searchTerm1)) {
             return myBeers;
         }
         if (myBeers == null) {
             return Collections.emptyList();
         }
-        ArrayList<MyBeer> filtered = new ArrayList<>();
-        for (MyBeer beer : myBeers) {
+        ArrayList<MyBeerFromUser> filtered = new ArrayList<>();
+        for (MyBeerFromUser beer : myBeers) {
             if (beer.getBeer().getName().toLowerCase().contains(searchTerm1.toLowerCase())) {
                 filtered.add(beer);
             }
@@ -76,7 +77,7 @@ public class MyBeersViewModel extends ViewModel implements CurrentUser {
         return filtered;
     }
 
-    public LiveData<List<MyBeer>> getMyFilteredBeers() {
+    public LiveData<List<MyBeerFromUser>> getMyFilteredBeers() {
         return myFilteredBeers;
     }
 
