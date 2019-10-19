@@ -84,6 +84,10 @@ public class MyBeersViewModel extends ViewModel implements CurrentUser {
         wishlistRepository.toggleUserWishlistItem(getCurrentUser().getUid(), beerId);
     }
 
+    public void toggleItemInFridge(String beerId) {
+        fridgeRepository.toggleUserFridgeItem(getCurrentUser().getUid(), beerId, 1);
+    }
+
     public void setSearchTerm(String searchTerm) {
         this.searchTerm.setValue(searchTerm);
     }

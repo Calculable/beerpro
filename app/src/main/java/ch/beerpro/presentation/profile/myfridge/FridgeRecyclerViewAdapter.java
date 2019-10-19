@@ -77,7 +77,7 @@ public class FridgeRecyclerViewAdapter extends ListAdapter<Pair<FridgeItem, Beer
         @BindView(R.id.addedAt)
         TextView addedAt;
 
-        @BindView(R.id.removeFromFridge)
+        @BindView(R.id.removeOrAddFromFridge)
         Button remove;
 
         @BindView(R.id.changeAmount)

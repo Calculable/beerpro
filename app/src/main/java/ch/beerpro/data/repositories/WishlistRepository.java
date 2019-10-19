@@ -86,5 +86,4 @@ public class WishlistRepository {
         return switchMap(combineLatest(currentUserId, beer), WishlistRepository::getUserWishListFor);
     }
 
-
 }

@@ -95,8 +95,11 @@ public class MyBeersRecyclerViewAdapter extends ListAdapter<MyBeer, MyBeersRecyc
         @BindView(R.id.onTheListSince)
         TextView onTheListSince;
 
-        @BindView(R.id.removeFromWishlist)
-        Button removeFromWishlist;
+        @BindView(R.id.removeOrAddWishlist)
+        Button removeOrAddFromWishlist;
+
+        @BindView(R.id.removeOrAddFromFridge)
+        Button removeOrAddFromFridge;
 
         ViewHolder(View view) {
             super(view);
@@ -117,30 +120,44 @@ public class MyBeersRecyclerViewAdapter extends ListAdapter<MyBeer, MyBeersRecyc
             ratingBar.setRating(item.getAvgRating());
             numRatings.setText(itemView.getResources().getString(R.string.fmt_num_ratings, item.getNumRatings()));
             itemView.setOnClickListener(v -> listener.onMoreClickedListener(photo, item));
-            removeFromWishlist.setOnClickListener(v -> listener.onWishClickedListener(item));
+            removeOrAddFromWishlist.setOnClickListener(v -> listener.onWishClickedListener(item));
+            removeOrAddFromFridge.setOnClickListener(v -> listener.onFridgeClickedListener(item));
 
             String formattedDate =
                     DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(entry.getDate());
             addedAt.setText(formattedDate);
 
-            //ToDo: Fridge here
+
+
+            //Default Values
+            DrawableHelpers.setDrawableTint(removeOrAddFromWishlist,
+                    itemView.getResources().getColor(android.R.color.darker_gray));
+            removeOrAddFromWishlist.setText("Zur Wunschliste hinzufügen");
+
+            DrawableHelpers.setDrawableTint(removeOrAddFromFridge,
+                    itemView.getResources().getColor(android.R.color.darker_gray));
+            removeOrAddFromFridge.setText("Zum Kühlschrank hinzufügen");
+
+
+            //Override Default Values
+            if (entry instanceof MyBeerFromRating) {
+
+                onTheListSince.setText("beurteilt am");
+            }
 
             if (entry instanceof MyBeerFromWishlist) {
                 DrawableHelpers
-                        .setDrawableTint(removeFromWishlist, itemView.getResources().getColor(R.color.colorPrimary));
+                        .setDrawableTint(removeOrAddFromWishlist, itemView.getResources().getColor(R.color.colorPrimary));
+                removeOrAddFromWishlist.setText("Von Wunschliste entfernen");
                 onTheListSince.setText("auf der Wunschliste seit");
-            } else if (entry instanceof MyBeerFromRating) {
-                DrawableHelpers.setDrawableTint(removeFromWishlist,
-                        itemView.getResources().getColor(android.R.color.darker_gray));
-                removeFromWishlist.setText("Wunschliste");
-                onTheListSince.setText("beurteilt am");
             }
 
 
             if (entry instanceof MyBeerFromFridge) {
+                DrawableHelpers
+                        .setDrawableTint(removeOrAddFromFridge, itemView.getResources().getColor(R.color.colorPrimary));
+                removeOrAddFromFridge.setText("Von Kühlschrank entfernen");
                 onTheListSince.setText("Im Kühlschrank seit");
-
-
             }
         }
     }

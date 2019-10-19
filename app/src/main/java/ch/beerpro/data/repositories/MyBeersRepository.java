@@ -75,10 +75,23 @@ public class MyBeersRepository {
 
         ArrayList<MyBeer> result = new ArrayList<>();
         Set<String> beersAlreadyOnTheList = new HashSet<>();
+
+
         for (Wish wish : wishlist) {
             String beerId = wish.getBeerId();
             result.add(new MyBeerFromWishlist(wish, beers.get(beerId)));
             beersAlreadyOnTheList.add(beerId);
+        }
+
+        for (FridgeItem fridgeItem : fridgeItems) {
+            String beerId = fridgeItem.getBeerId();
+            if (beersAlreadyOnTheList.contains(beerId)) {
+                // if the beer is already on the wish list or in a rating, don't add it again
+            } else {
+                result.add(new MyBeerFromFridge(fridgeItem, beers.get(beerId)));
+                // we also don't want to see a rated beer twice
+                beersAlreadyOnTheList.add(beerId);
+            }
         }
 
         for (Rating rating : ratings) {
@@ -92,16 +105,6 @@ public class MyBeersRepository {
             }
         }
 
-        for (FridgeItem fridgeItem : fridgeItems) {
-            String beerId = fridgeItem.getBeerId();
-            if (beersAlreadyOnTheList.contains(beerId)) {
-                // if the beer is already on the wish list or in a rating, don't add it again
-            } else {
-                result.add(new MyBeerFromFridge(fridgeItem, beers.get(beerId)));
-                // we also don't want to see a rated beer twice
-                beersAlreadyOnTheList.add(beerId);
-            }
-        }
 
         Collections.sort(result, (r1, r2) -> r2.getDate().compareTo(r1.getDate()));
         return result;
