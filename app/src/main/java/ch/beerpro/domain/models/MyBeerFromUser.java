@@ -103,7 +103,7 @@ public class MyBeerFromUser {
         if (!(o instanceof MyBeerFromUser)) return false;
         final MyBeerFromUser other = (MyBeerFromUser) o;
 
-        if (!other.canEqual((Object) this)) return false;
+        if (!other.canEqual(this)) return false;
 
         final Object this$fridgeItem = this.getFridgeItem();
         final Object other$fridgeItem = other.getFridgeItem();
