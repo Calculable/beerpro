@@ -94,4 +94,11 @@ public class WishlistActivity extends AppCompatActivity implements OnWishlistIte
     public void onWishClickedListener(Beer beer) {
         model.toggleItemInWishlist(beer.getId());
     }
+
+    @Override
+    public void onMoveToFridgeClickedListener(Beer beer) {
+        model.toggleItemInWishlist(beer.getId());
+        model.addItemToFridge(beer.getId(), 1);
+    }
+
 }

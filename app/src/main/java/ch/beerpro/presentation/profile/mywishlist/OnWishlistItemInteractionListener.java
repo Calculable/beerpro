@@ -9,4 +9,7 @@ public interface OnWishlistItemInteractionListener {
     void onMoreClickedListener(ImageView photo, Beer beer);
 
     void onWishClickedListener(Beer beer);
+
+    void onMoveToFridgeClickedListener(Beer beer);
+
 }

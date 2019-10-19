@@ -12,6 +12,7 @@ import java.util.List;
 
 import ch.beerpro.data.repositories.BeersRepository;
 import ch.beerpro.data.repositories.CurrentUser;
+import ch.beerpro.data.repositories.FridgeRepository;
 import ch.beerpro.data.repositories.WishlistRepository;
 import ch.beerpro.domain.models.Beer;
 import ch.beerpro.domain.models.Wish;
@@ -22,12 +23,14 @@ public class WishlistViewModel extends ViewModel implements CurrentUser {
 
     private final MutableLiveData<String> currentUserId = new MutableLiveData<>();
     private final WishlistRepository wishlistRepository;
+    private final FridgeRepository fridgeRespository;
+
     private final BeersRepository beersRepository;
 
     public WishlistViewModel() {
         wishlistRepository = new WishlistRepository();
         beersRepository = new BeersRepository();
-
+        fridgeRespository = new FridgeRepository();
         currentUserId.setValue(getCurrentUser().getUid());
     }
 
@@ -39,4 +42,8 @@ public class WishlistViewModel extends ViewModel implements CurrentUser {
         return wishlistRepository.toggleUserWishlistItem(getCurrentUser().getUid(), itemId);
     }
 
+    public Task<Void>  addItemToFridge(String itemId, int amount) {
+        return fridgeRespository.addUserFridgeItem(getCurrentUser().getUid(), itemId, amount);
+
+    }
 }
