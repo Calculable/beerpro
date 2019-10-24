@@ -14,7 +14,7 @@
 - Bilder können pro Hersteller im Firebase-Storage abgelegt werden
 - Beim Starten der App werden zuerst Platzhalterbilder angezeigt und dann dynamisch die hinterlegten Bilder vom Firebase Storage geladen
 
-![](documentation/1_Load_Image_From_Database/1.png | width=100)
+![](documentation/1_Load_Image_From_Database/1.png)
 ![](documentation/1_Load_Image_From_Database/2.png)
 ![](documentation/1_Load_Image_From_Database/3.png)
 ![](documentation/1_Load_Image_From_Database/4.png)
